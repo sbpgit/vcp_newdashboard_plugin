@@ -1,0 +1,16 @@
+<mvc:View controllerName="vcapp.vcpnewanalyticaldashboard.controller.Home"
+ xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+    xmlns:core="sap.ui.core" xmlns:card="sap.ui.integration.widgets">
+    <Page id="page" title="{i18n>title}" showHeader="false">
+        <content>
+
+            <!-- HEADER SECTION -->
+           <VBox id="_IDGenVBox1" class="sapUiSmallMargin">
+        <Title id="_IDGenTitle" text="Planner's Dashboard" level="H2"/>
+        <Text id="_IDGenText" text="This is your embedded planner dashboard view."/>
+        <Button id="_IDGenButton" text="Do Something" press=".onDoSomething"/>
+    </VBox>
+
+        </content>
+    </Page>
+</mvc:View>
