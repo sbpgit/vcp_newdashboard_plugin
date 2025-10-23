@@ -111,7 +111,7 @@ sap.ui.define([
       if (iframe) iframe.remove();
       sap.ushell.Container.getServiceAsync("CrossApplicationNavigation").then(oNav => {
         const sHash = oNav.hrefForExternal({
-          target: { semanticObject: "vcplannerdashboard", action: "Display" },
+          target: { semanticObject: "vcplannerdashboardNew", action: "Display" },
           params: { "sap-ushell-config": "lean" }
         });
         iframe.src = sHash; // uses Launchpad internal resolver
