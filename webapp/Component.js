@@ -11,11 +11,12 @@ sap.ui.define([
     init: function () {
       UIComponent.prototype.init.apply(this, arguments);
       Log.info("FLP Plugin: Initializing (iframe-based Planner Dashboard plugin)...");
-
+      BusyIndicator.show(0);
       const renderer = sap.ushell.Container.getRenderer("fiori2");
       if (renderer && typeof renderer.then === "function") {
         renderer.then(this._observeSpaceTabs.bind(this))
           .catch(err => Log.error("Renderer (async) not available", err));
+        BusyIndicator.show(0);
       } else if (renderer) {
         this._observeSpaceTabs(renderer);
       } else {
@@ -23,7 +24,7 @@ sap.ui.define([
           this._observeSpaceTabs(event.getParameter("renderer"));
         });
       }
-       
+
     },
 
     /**
@@ -44,12 +45,16 @@ sap.ui.define([
         });
       };
 
-      setTimeout(attachListeners, 2000);
+      setTimeout(() => {
+        attachListeners();
+        Log.info("FLP Plugin: Tab listeners attached successfully.");
+        // 🔹 Hide busy dialog once plugin ready
+        BusyIndicator.hide();
+      }, 2000);
 
       const observer = new MutationObserver(() => attachListeners());
       observer.observe(document.body, { childList: true, subtree: true });
     },
-
     /**
      * Handle group (tab) click
      */
@@ -129,12 +134,12 @@ sap.ui.define([
       iframe.style.borderRadius = "12px";
       iframe.style.boxShadow = "0 2px 8px rgba(0,0,0,0.1)";
       iframe.setAttribute("title", "Planner’s Dashboard (Embedded Lean Mode)");
-      container.insertBefore(iframe, container.firstChild);     
+      container.insertBefore(iframe, container.firstChild);
       Log.info("FLP Plugin: ✅ Planner’s Dashboard iframe embedded successfully.");
       this._hideLoading();
-      
+
     },
-    
+
 
 
     /**
