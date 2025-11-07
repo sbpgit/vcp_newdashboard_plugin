@@ -11,12 +11,12 @@ sap.ui.define([
     init: function () {
       UIComponent.prototype.init.apply(this, arguments);
       Log.info("FLP Plugin: Initializing (iframe-based Planner Dashboard plugin)...");
-      BusyIndicator.show(0);
+      sap.ui.core.BusyIndicator.show(0);
       const renderer = sap.ushell.Container.getRenderer("fiori2");
       if (renderer && typeof renderer.then === "function") {
         renderer.then(this._observeSpaceTabs.bind(this))
           .catch(err => Log.error("Renderer (async) not available", err));
-        BusyIndicator.show(0);
+        sap.ui.core.BusyIndicator.show(0);
       } else if (renderer) {
         this._observeSpaceTabs(renderer);
       } else {
@@ -49,7 +49,7 @@ sap.ui.define([
         attachListeners();
         Log.info("FLP Plugin: Tab listeners attached successfully.");
         // 🔹 Hide busy dialog once plugin ready
-        BusyIndicator.hide();
+        sap.ui.core.BusyIndicator.hide();
       }, 2000);
 
       const observer = new MutationObserver(() => attachListeners());
@@ -63,13 +63,13 @@ sap.ui.define([
 
       // Clean up iframe if user navigates away
       const existingFrame = document.getElementById("plannerDashboardFrame");
-      if (existingFrame && label !== "Planner's-Dashboard" && label !== "Planner’s-Dashboard") {
+      if (existingFrame && label !== "Planner Dashboard") {
         existingFrame.remove();
         Log.info("FLP Plugin: Removed Planner’s Dashboard iframe (user switched tab).");
       }
 
       // Only embed if Planner's Dashboard clicked
-      if (label === "Planner's-Dashboard" || label === "Planner’s-Dashboard") {
+      if (label === "Planner Dashboard") {
         this._showLoading();
         setTimeout(() => this._embedPlannerDashboardIFrame(), 1000);
       }
