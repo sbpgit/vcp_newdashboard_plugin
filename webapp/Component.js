@@ -139,9 +139,6 @@ sap.ui.define([
       this._hideLoading();
 
     },
-
-
-
     /**
      * Cleanup on exit
      */
