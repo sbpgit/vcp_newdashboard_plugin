@@ -24,7 +24,6 @@ sap.ui.define([
           this._observeSpaceTabs(event.getParameter("renderer"));
         });
       }
-
     },
 
     /**
